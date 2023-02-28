@@ -1,0 +1,57 @@
+version: "3.8"
+name: OnlineStore
+services:
+  estore_backend:
+    container_name: estore_backend
+    hostname: estore_backend
+    build:
+      context: .
+      dockerfile: ./DockerFiles/php/Dockerfile
+    volumes:
+      - ./app/:/var/www/html
+      - ./DockerFiles/php/php.ini-development:/usr/local/etc/php/php.ini-development
+    depends_on:
+      - estore_db
+    # command: ["/bin/bash", "-c", "composer update && php artisan migrate && php-fpm -y /usr/local/etc/php-fpm.conf -R"]
+
+  estore_webserver:
+    container_name: estore_webserver
+    hostname: estore_webserver
+    image: nginx
+    volumes:
+    - ./config/nginx:/etc/nginx/conf.d/
+    - ./app/:/var/www/html
+    ports:
+      - 80:80
+
+  estore_db:
+    container_name: estore_db
+    hostname: estore_db
+    image: mysql:8.0.20
+    ports:
+      - 3306:3306
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    environment:
+      MYSQL_HOST: estore_db
+      MYSQL_DATABASE: estore_db
+      MYSQL_ROOT_PASSWORD: root
+
+  estore_redis:
+    container_name: estore_redis
+    hostname: estore_redis
+    image: redis:latest
+    
+
+  # estore_elasticsearch:
+  #   container_name: estore_elasticsearch
+  #   hostname: estore_elasticsearch
+  #   image: elasticsearch:7.17.8
+  #   volumes:
+  #     - ./storage/es-data:/usr/share/elasticsearch/data
+  #   environment:
+  #     - xpack.security.enabled=false
+  #     - discovery.type=single-node
+
+  
+  
