@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Interface;
 
-Interface RepositoryInterface
+Interface CategoryInterface
 {
     public function all();
     public function find(int $id);

@@ -3,10 +3,10 @@
 namespace App\Http\Repositories;
 
 use App\Models\Category;
-use App\Repositories\Interface\RepositoryInterface;
+use App\Repositories\Interface\CategoryInterface;
 use Exception;
 
-class CategoryRepository implements RepositoryInterface
+class CategoryRepository implements CategoryInterface
 {
     public function all()
     {
