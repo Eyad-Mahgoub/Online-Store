@@ -8,22 +8,46 @@ use Exception;
 
 class CategoryRepository implements CategoryInterface
 {
-    public function all()
+    /**
+     * Get all of the Caregory models from the database.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function all(): \Illuminate\Database\Eloquent\Collection
     {
         return Category::all()->paginate(10);
     }
 
-    public function find(int $id)
+    /**
+     * Find a Category Model in the database using its ID.
+     *
+     * @param int $id
+     * @return \App\Models\Category
+     */
+    public function find(int $id): \App\Models\Category
     {
         return Category::find($id);
     }
 
-    public function store(array $data)
+    /**
+     * Create a new category model and save it in the Database.
+     *
+     * @param array $data
+     * @return \App\Models\Category
+     */
+    public function store(array $data): \App\Models\Category
     {
         return Category::create($data);
     }
 
-    public function update(int $id, array $data)
+    /**
+     * Updates a Category Record in the database using its ID.
+     *
+     * @param int $id
+     * @param array $data
+     * @return \App\Models\Category|false
+     */
+    public function update(int $id, array $data): \App\Models\Category | false
     {
         try {
             return Category::find($id)->update($data);
@@ -32,7 +56,13 @@ class CategoryRepository implements CategoryInterface
         }
     }
 
-    public function destroy(int $id)
+    /**
+     * Deletes a Category Record from the database using its ID.
+     *
+     * @param \App\Models\Category
+     * @return bool
+     */
+    public function destroy(int $id): bool
     {
         try {
             Category::destroy($id);

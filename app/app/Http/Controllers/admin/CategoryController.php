@@ -17,18 +17,34 @@ class CategoryController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function index()
+
+    /**
+     * Index page of the Category Page in admin Panel
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function index(): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory
     {
         $categories = $this->categoryRepository->all();
         return view('', compact('categories'));
     }
 
-    public function create()
+    /**
+     * Create a new Category Page
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function create(): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory
     {
         return view('');
     }
 
-    public function store(Request $request)
+    /**
+     * Saves a new category into the database
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $data = $request->validated();
         $this->categoryRepository->store($data);
@@ -36,12 +52,24 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
-    public function edit(Category $category)
+
+    /**
+     * Edit a Category Page
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function edit(Category $category): \Illuminate\Contracts\View\View | \Illuminate\Contracts\View\Factory
     {
         return view('', compact('category'));
     }
 
-    public function update(Request $request)
+
+    /**
+     * Updates a Category Record in the database
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
         $data = $request->validated();
         $this->categoryRepository->update($request->id, $data);
@@ -49,7 +77,12 @@ class CategoryController extends Controller
         return redirect()->back();
     }
 
-    public function destroy(Category $category)
+    /**
+     * Deletes a Cateogory Record from the database
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Category $category): \Illuminate\Http\RedirectResponse
     {
         $this->categoryRepository->destroy($category->id);
 
